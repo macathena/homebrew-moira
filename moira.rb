@@ -4,12 +4,11 @@ class Moira < Formula
   url "https://github.com/mit-athena/moira/archive/4.0.0.3+51+g65d55c5.tar.gz"
   sha256 "d418681ae4ec61a124c55fb67a6bba0d89b59dc760c4d1c9a1e8e1c9c7b69b19"
 
-  # Require use of MIT Kerberos
-  # option "with-krb5", "Build with homebrew/dupes/krb5"
+  option "with-krb5", "Build with homebrew/dupes/krb5"
 
   depends_on "e2fsprogs" # for com_err, as recommended by Debian packaging
   depends_on "hesiod"
-  depends_on "homebrew/dupes/krb5" # if build.with? "krb5"
+  depends_on "homebrew/dupes/krb5" if build.with? "krb5"
 
   def install
     args = %W[
@@ -26,12 +25,11 @@ class Moira < Formula
       --mandir=#{man}
     ]
 
-    args << "--with-krb5=#{Formula["krb5"].opt_prefix}"
-    # if build.with? "krb5"
-    #   args << "--with-krb5=#{Formula["krb5"].opt_prefix}"
-    # else
-    #   args << "--with-krb5"
-    # end
+    if build.with? "krb5"
+      args << "--with-krb5=#{Formula["krb5"].opt_prefix}"
+    else
+      args << "--with-krb5"
+    end
 
     cd "moira" do
       system "./configure", *args
