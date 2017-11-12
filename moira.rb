@@ -5,10 +5,9 @@ class Moira < Formula
   sha256 "d418681ae4ec61a124c55fb67a6bba0d89b59dc760c4d1c9a1e8e1c9c7b69b19"
 
   depends_on "hesiod"
-  depends_on "homebrew/dupes/krb5" # if build.with? "krb5"
+  depends_on "krb5"
 
   def install
-
     args = %W[
       --disable-dependency-tracking
       --disable-silent-rules
@@ -24,19 +23,26 @@ class Moira < Formula
       --mandir=#{man}
     ]
 
+    # Build et
     cd "moira/util/et" do
       system "./configure"
       system "make"
     end
+
+    # Build moira core
     cd "moira" do
       system "./configure", *args
       system "make"
       system "make", "install"
     end
+
+    # Override moira-specific system tool names
     cd bin do
       mv "chfn", "chfn.moira"
       mv "chsh", "chsh.moira"
     end
+
+    # Build manpage documentation
     cd man1 do
       mv "chsh.1", "chsh.moira.1"
       mv "chfn.1", "chfn.moira.1"
