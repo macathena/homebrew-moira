@@ -7,9 +7,3 @@ Installation:
 brew tap macathena/moira
 brew install moira
 ```
-
-But if you're not insane, you'll know you'll want MIT Kerberos.
-
-```sh
-brew install moira --with-krb5
-```
