@@ -6,12 +6,12 @@ install:
     - ln -s $PWD $(brew --repo)/Library/Taps/travis/homebrew-moira
     - brew tap --repair
 script:
-    - travis_wait brew audit $PACKAGE
-    - travis_wait brew install -v $PACKAGE
-    - brew test $PACKAGE
+    - brew audit -v $PACKAGE
+    - brew install -v $PACKAGE
+    - brew test -v $PACKAGE
 matrix:
     include:
-        - env: macos=10.13 PACKAGE=moira
+        - env: macos=10.12 PACKAGE=moira
           os: osx
           osx_image: xcode9.1
           rvm: system
