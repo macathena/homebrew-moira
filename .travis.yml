@@ -1,0 +1,29 @@
+language: ruby
+before_install:
+    - brew update
+install:
+    - mkdir -p $(brew --repo)/Library/Taps/travis
+    - ln -s $PWD $(brew --repo)/Library/Taps/travis/homebrew-moira
+    - brew tap --repair
+script:
+    - brew audit -v $PACKAGE
+    - brew install -v $PACKAGE
+    - brew test -v $PACKAGE
+matrix:
+    include:
+        - env: macos=10.12 PACKAGE=moira
+          os: osx
+          osx_image: xcode9.1
+          rvm: system
+        - env: macos=10.12 PACKAGE=moira
+          os: osx
+          osx_image: xcode8.3
+          rvm: system
+        - env: macos=10.11 PACKAGE=moira
+          os: osx
+          osx_image: xcode7.3
+          rvm: system
+        - env: macos=10.10 PACKAGE=moira
+          os: osx
+          osx_image: xcode6.4
+          rvm: system
