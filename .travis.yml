@@ -7,8 +7,8 @@ install:
     - brew tap --repair
 env: PACKAGE=moira
 script:
-    - brew audit $PACKAGE
-    - brew install -v $PACKAGE
+    - travis_wait brew audit $PACKAGE
+    - travis_wait brew install -v $PACKAGE
     - brew test $PACKAGE
 matrix:
     include:
