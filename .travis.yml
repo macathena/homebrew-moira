@@ -1,0 +1,25 @@
+{
+  language: objective-c,
+  before_install: [
+    "brew update"
+  ],
+  install: [
+    "mkdir -p $(brew --repo)/Library/Taps/travis",
+    "ln -s $PWD $(brew --repo)/Library/Taps/travis/homebrew-moira",
+    "brew tap --repair"
+  ],
+  env: PACKAGE=moira,
+  script: [
+    brew audit $PACKAGE,
+    brew install -v $PACKAGE,
+    brew test $PACKAGE
+  ],
+  matrix:
+  	include:
+    - os: osx
+      osx_image: xcode7.3
+    - os: osx
+      osx_image: xcode8.3
+    - os: osx
+      osx_image: xcode9.1
+}
