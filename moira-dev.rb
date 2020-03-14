@@ -1,13 +1,13 @@
-class Moira < Formula
-  desc "Clients for the Athena Service Management System"
-  homepage "https://debathena.mit.edu"
-  url "https://github.com/mit-athena/moira/archive/4.0.0.3+51+g65d55c5.tar.gz"
-  sha256 "d418681ae4ec61a124c55fb67a6bba0d89b59dc760c4d1c9a1e8e1c9c7b69b19"
+class MoiraDev < Formula
+  desc "Clients for the Athena Service Management System (developer)"
+  homepage "https://github.mit.edu/ops/moira"
+  url "git@github.mit.edu:ops/moira.git", :using => :git
+  version "0"
 
   depends_on :macos => :el_capitan
   depends_on "hesiod"
   depends_on "krb5"
-  conflicts_with "moira-dev", :because => "moira-dev is moira"
+  conflicts_with "moira", :because => "moira-dev is moira"
 
   def install
     args = %W[
